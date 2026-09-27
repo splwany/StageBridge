@@ -9,7 +9,9 @@ jobs:
   checks:
     runs-on: macos-15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
       - name: Validate scripts and property lists
         run: |
           for script in scripts/*.sh; do bash -n "$script"; done
@@ -19,4 +21,4 @@ jobs:
       - name: Build universal app
         run: ./scripts/build.sh
       - name: Verify architectures
-        run: lipo -verify_arch arm64 x86_64 .build/StageBridge.app/Contents/MacOS/StageBridge
+        run: lipo .build/StageBridge.app/Contents/MacOS/StageBridge -verify_arch arm64 x86_64
