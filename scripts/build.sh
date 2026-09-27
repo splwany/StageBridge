@@ -6,7 +6,7 @@ SDK_PATH="${SDKROOT:-$(xcrun --sdk macosx --show-sdk-path)}"
 BUILD_DIR="$ROOT_DIR/.build"
 APP="$BUILD_DIR/StageBridge.app"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources" "$BUILD_DIR/ModuleCache"
-SOURCES=(Sources/Core/*.swift Sources/App/*.swift)
+SOURCES=(Sources/Core/*.swift Sources/Services/*.swift Sources/App/*.swift)
 for ARCH in arm64 x86_64; do
     xcrun swiftc -parse-as-library -O -swift-version 5 -target "$ARCH-apple-macosx14.0" \
         -sdk "$SDK_PATH" -module-cache-path "$BUILD_DIR/ModuleCache" \

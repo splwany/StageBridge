@@ -1,0 +1,22 @@
+name: macOS checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate scripts and property lists
+        run: |
+          for script in scripts/*.sh; do bash -n "$script"; done
+          plutil -lint Resources/Info.plist StageBridge.xcodeproj/project.pbxproj
+      - name: Run isolated checks
+        run: ./scripts/test.sh
+      - name: Build universal app
+        run: ./scripts/build.sh
+      - name: Verify architectures
+        run: lipo -verify_arch arm64 x86_64 .build/StageBridge.app/Contents/MacOS/StageBridge

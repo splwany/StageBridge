@@ -2,7 +2,7 @@
 
 一个 Swift 编写的 macOS 菜单栏工具：外接显示器连接时关闭台前调度，断开时开启。
 
-**0.1.0-beta.1 · 实验性测试版 · macOS 14+ · Apple Silicon / Intel 通用二进制**
+**0.1.0-beta.2 · 实验性测试版 · macOS 14+ · Apple Silicon / Intel 通用二进制**
 
 本项目尚未发布到 Mac App Store。当前测试构建使用本地临时签名，未经 Apple 公证；正式发布流程见 [分发说明](docs/DISTRIBUTION.md)。
 
@@ -36,10 +36,13 @@
 
 构建输出为 `.build/StageBridge.app`，安装包在 `dist/`。默认生成 arm64 和 x86_64 通用版本，无第三方库或运行时依赖。如本机默认 SDK 与工具链不匹配，可显式指定 `SDKROOT` 为已安装且匹配的 SDK 路径。
 
+贡献流程与行为约束见 [CONTRIBUTING.md](CONTRIBUTING.md) 和 [架构说明](docs/ARCHITECTURE.md)。
+
 目录：
 
 - `Sources/Core`：可单独验证的连接状态策略
-- `Sources/App`：设置、菜单栏、显示器事件与台前调度控制
+- `Sources/App`：设置、菜单栏及监听流程协调
+- `Sources/Services`：系统事件、显示器读取、命令执行、台前调度控制和迁移
 - `Resources`：应用信息与图标
 - `Tests`：状态策略检查
 - `scripts`：构建、测试、打包、公证
