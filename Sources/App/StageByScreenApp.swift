@@ -23,15 +23,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     let mainMenu = NSMenu()
     let appItem = NSMenuItem()
     let appMenu = NSMenu()
-    add("StageBridge 设置…", #selector(showSettings), ",", to: appMenu)
+    add("台前随屏 设置…", #selector(showSettings), ",", to: appMenu)
     appMenu.addItem(.separator())
-    add("退出 StageBridge", #selector(quit), "q", to: appMenu)
+    add("退出台前随屏", #selector(quit), "q", to: appMenu)
     appItem.submenu = appMenu
     mainMenu.addItem(appItem)
     NSApp.mainMenu = mainMenu
     statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
     statusItem.button?.image = NSImage(
-      systemSymbolName: "display.2", accessibilityDescription: "StageBridge")
+      systemSymbolName: "display.2", accessibilityDescription: "台前随屏")
     subscription = monitor.objectWillChange.sink { [weak self] _ in
       DispatchQueue.main.async { self?.updateMenu() }
     }
@@ -54,7 +54,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     add("设置…", #selector(showSettings), ",", to: menu)
     add(monitor.enabled ? "暂停自动切换" : "开启自动切换", #selector(toggle), "", to: menu)
     menu.addItem(.separator())
-    add("退出 StageBridge", #selector(quit), "q", to: menu)
+    add("退出台前随屏", #selector(quit), "q", to: menu)
     statusItem.menu = menu
   }
 
@@ -68,7 +68,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     if window == nil {
       let controller = NSHostingController(rootView: SettingsView(monitor: monitor))
       let created = NSWindow(contentViewController: controller)
-      created.title = "StageBridge · 台前调度自动切换"
+      created.title = "台前随屏 · StageByScreen"
       created.styleMask = [.titled, .closable, .miniaturizable]
       created.standardWindowButton(.zoomButton)?.isHidden = true
       created.isReleasedWhenClosed = false
@@ -94,7 +94,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 }
 
 @main
-struct StageBridgeMain {
+struct StageByScreenMain {
   static func main() {
     let app = NSApplication.shared
     let delegate = AppDelegate()

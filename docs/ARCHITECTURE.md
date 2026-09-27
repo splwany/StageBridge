@@ -1,12 +1,12 @@
 # 架构与行为约束
 
-StageBridge 不依赖第三方库。UI 与监听流程在主线程协调，只有短时系统命令在后台执行。
+台前随屏（StageByScreen）不依赖第三方库。UI 与监听流程在主线程协调，只有短时系统命令在后台执行。
 
 ## 模块
 
 - `Sources/Core`：连接变化策略、睡眠/唤醒状态和错误类型；无 UI 依赖。
 - `Sources/App/Monitor.swift`：协调用户设置、显示器事件、定时检查、睡眠通知和异步控制结果。
-- `Sources/App/SettingsView.swift`、`StageBridgeApp.swift`：原生设置页与菜单栏生命周期。
+- `Sources/App/SettingsView.swift`、`StageByScreenApp.swift`：原生设置页与菜单栏生命周期。
 - `Sources/Services/DisplayEvents.swift`：拥有 CoreGraphics 回调注册，停止后不再转发事件。
 - `DisplayReader.swift`：读取在线显示器，拒绝空列表和读取期间容量变化。
 - `MonitorScheduler.swift`：主线程防抖与公共 RunLoop 模式下的备用定时器。

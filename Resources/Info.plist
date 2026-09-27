@@ -5,19 +5,19 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>zh_CN</string>
 	<key>CFBundleExecutable</key>
-	<string>StageBridge</string>
+	<string>StageByScreen</string>
 	<key>CFBundleIdentifier</key>
 	<string>org.stagebridge.StageBridge</string>
 	<key>CFBundleName</key>
-	<string>StageBridge</string>
+	<string>台前随屏</string>
 	<key>CFBundleDisplayName</key>
-	<string>StageBridge</string>
+	<string>台前随屏</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>0.1.0</string>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>3</string>
 	<key>CFBundleIconFile</key>
 	<string>AppIcon</string>
 	<key>LSMinimumSystemVersion</key>
@@ -26,7 +26,7 @@
 	<true/>
 	<key>NSHighResolutionCapable</key>
 	<true/>
-	<key>StageBridgeReleaseVersion</key>
-	<string>0.1.0-beta.2</string>
+	<key>StageByScreenReleaseVersion</key>
+	<string>0.1.0-beta.3</string>
 </dict>
 </plist>

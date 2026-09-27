@@ -9,13 +9,13 @@ struct SettingsView: View {
         HStack(alignment: .top) {
           Image(systemName: "display.2").font(.system(size: 30)).foregroundStyle(.blue)
           VStack(alignment: .leading, spacing: 5) {
-            Text("StageBridge").font(.system(size: 25, weight: .semibold))
-            Text("外接屏与台前调度，自动配合。")
+            Text("台前随屏").font(.system(size: 25, weight: .semibold))
+            Text("StageByScreen · 台前调度随屏切换")
               .foregroundStyle(.secondary)
           }
           Spacer()
           Text(
-            Bundle.main.object(forInfoDictionaryKey: "StageBridgeReleaseVersion") as? String
+            Bundle.main.object(forInfoDictionaryKey: "StageByScreenReleaseVersion") as? String
               ?? "开发版本"
           ).font(.caption).foregroundStyle(.secondary)
         }
@@ -29,7 +29,7 @@ struct SettingsView: View {
           Divider()
           Toggle("启用自动切换", isOn: Binding(get: { monitor.enabled }, set: { monitor.setEnabled($0) }))
             .disabled(monitor.hasLegacy)
-          Text("连接外接显示器时关闭台前调度；断开时开启。连接状态不变时，尊重你的手动切换。")
+          Text("外接屏时关闭台前调度，让多个窗口自由并排；单独使用笔记本时开启，让工作更专注。")
             .font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
           HStack {
             Text("备用检查间隔")
@@ -41,7 +41,7 @@ struct SettingsView: View {
               ForEach(DisplayMonitor.intervals, id: \.self) { Text("\($0) 秒").tag($0) }
             }.labelsHidden().frame(width: 115)
           }
-          Text("优先响应系统显示器事件，稳定 2 秒后切换。备用间隔修改立即生效。")
+          Text("连接变化稳定 2 秒后切换；连接状态不变时保留你的手动设置。")
             .font(.caption).foregroundStyle(.secondary)
           Divider()
           Toggle(

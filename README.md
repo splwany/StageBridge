@@ -1,14 +1,16 @@
-# StageBridge
+# 台前随屏 · StageByScreen
 
-一个 Swift 编写的 macOS 菜单栏工具：外接显示器连接时关闭台前调度，断开时开启。
+让台前调度跟随屏幕状态自动切换：外接屏时关闭，方便多窗口并排；单独使用笔记本时开启，让小屏工作更专注。
 
-**0.1.0-beta.2 · 实验性测试版 · macOS 14+ · Apple Silicon / Intel 通用二进制**
+英文名 **StageByScreen** 表达“按屏幕状态决定台前调度”。原名 StageBridge，升级沿用相同偏好域和日志位置。
+
+**0.1.0-beta.3 · 实验性测试版 · macOS 14+ · Apple Silicon / Intel 通用二进制**
 
 本项目尚未发布到 Mac App Store。当前测试构建使用本地临时签名，未经 Apple 公证；正式发布流程见 [分发说明](docs/DISTRIBUTION.md)。
 
 ## 使用
 
-1. 将 DMG 中的 StageBridge.app 拖进“应用程序”，不要直接在 DMG 中运行。
+1. 将 DMG 中的 台前随屏.app 拖进“应用程序”，不要直接在 DMG 中运行。
 2. 首次打开默认暂停。阅读设置窗口中的测试版说明，再选择“启用自动切换”。
 3. 关闭设置窗口后，程序仍在菜单栏运行。菜单栏可暂停、打开设置或退出。退出会停止全部监听。
 4. “登录时启动”由 macOS 管理，可能需要在系统设置中允许。卸载前先关闭此选项并退出，然后将 App 移到废纸篓。
@@ -26,7 +28,7 @@
 
 ## 开发
 
-使用 Xcode 打开 `StageBridge.xcodeproj`。也可仅安装 Apple Command Line Tools 后运行：
+使用 Xcode 打开 `StageByScreen.xcodeproj`。也可仅安装 Apple Command Line Tools 后运行：
 
 ```sh
 ./scripts/test.sh
@@ -34,7 +36,7 @@
 ./scripts/package.sh
 ```
 
-构建输出为 `.build/StageBridge.app`，安装包在 `dist/`。默认生成 arm64 和 x86_64 通用版本，无第三方库或运行时依赖。如本机默认 SDK 与工具链不匹配，可显式指定 `SDKROOT` 为已安装且匹配的 SDK 路径。
+构建输出为 `.build/台前随屏.app`，安装包在 `dist/`。默认生成 arm64 和 x86_64 通用版本，无第三方库或运行时依赖。如本机默认 SDK 与工具链不匹配，可显式指定 `SDKROOT` 为已安装且匹配的 SDK 路径。
 
 贡献流程与行为约束见 [CONTRIBUTING.md](CONTRIBUTING.md) 和 [架构说明](docs/ARCHITECTURE.md)。
 
