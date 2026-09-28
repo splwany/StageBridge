@@ -16,6 +16,8 @@ jobs:
         run: |
           for script in scripts/*.sh; do bash -n "$script"; done
           plutil -lint Resources/Info.plist StageByScreen.xcodeproj/project.pbxproj
+      - name: Fetch verified Sparkle framework
+        run: ./scripts/fetch-sparkle.sh
       - name: Run isolated checks
         run: ./scripts/test.sh
       - name: Build universal app

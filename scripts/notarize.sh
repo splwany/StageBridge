@@ -16,4 +16,5 @@ DMG="dist/StageByScreen-$VERSION-universal.dmg"
 codesign --sign "$DEVELOPER_ID_APPLICATION" --timestamp "$DMG"
 xcrun notarytool submit "$DMG" --keychain-profile "$NOTARY_PROFILE" --wait
 xcrun stapler staple "$DMG"
-shasum -a 256 "$DMG" > dist/SHA256SUMS.txt
+(cd dist && shasum -a 256 "StageByScreen-$VERSION-universal.dmg" > SHA256SUMS.txt)
+# Generate/sign the update feed only after this final notarized archive is complete.

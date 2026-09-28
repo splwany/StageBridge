@@ -31,8 +31,14 @@ Apple Silicon 和 Intel 使用同一个 DMG。Release 的 Assets 中提供安装
 
 - 台前调度控制仍采用未公开承诺兼容性的 `com.apple.WindowManager/GloballyEnabled` 偏好，切换后重载 Dock，可能造成短暂界面闪动。它不是公开的 Stage Manager 控制 API，macOS 更新后可能失效。
 - 外接显示器依据 CoreGraphics 的非内置在线显示器判断。虚拟显示器、Sidecar、AirPlay 可能也被识别为外接屏；不是按 USB 扩展坞硬件识别。
-- App 不请求管理员权限、辅助功能或屏幕录制权限；不采集截图，不访问网络，不含分析 SDK。
+- 屏幕监听无需辅助功能或屏幕录制权限，不采集截图。软件更新会连接 GitHub；安装目录不可写时，系统可能要求管理员授权。不含分析 SDK。
 - 最低目标系统为 macOS 14；当前实际本机验证与未验证项见 [测试记录](docs/TESTING.md)。不能将编译支持等同于所有设备均已测试。
+
+## 软件更新（开发中，v0.1.0 安装包尚未包含）
+
+首次需手动安装带更新组件的版本。之后每天后台检查一次，发现新版时设置页和菜单栏会显示更新按钮。点击后由 Sparkle 显示版本说明、下载进度，校验签名并安装、重新启动。高级设置可关闭自动检查，也可手动“检查更新…”。不会在未经用户选择时自动下载或安装。
+
+发行者必须使用签名发布流程，为每个 Release 上传 `appcast.xml`；仅上传 DMG 不会自动加入更新渠道。详见 [分发说明](docs/DISTRIBUTION.md)。
 
 ## 开发
 
@@ -44,7 +50,7 @@ Apple Silicon 和 Intel 使用同一个 DMG。Release 的 Assets 中提供安装
 ./scripts/package.sh
 ```
 
-构建输出为 `.build/台前随屏.app`，安装包在 `dist/`。默认生成 arm64 和 x86_64 通用版本，无第三方库或运行时依赖。如本机默认 SDK 与工具链不匹配，可显式指定 `SDKROOT` 为已安装且匹配的 SDK 路径。
+构建输出为 `.build/台前随屏.app`，安装包在 `dist/`。默认生成 arm64 和 x86_64 通用版本，内置固定版本 Sparkle 2.10.0 更新框架，无需用户另行安装依赖。如本机默认 SDK 与工具链不匹配，可显式指定 `SDKROOT` 为已安装且匹配的 SDK 路径。
 
 贡献流程与行为约束见 [CONTRIBUTING.md](CONTRIBUTING.md) 和 [架构说明](docs/ARCHITECTURE.md)。
 
@@ -60,6 +66,6 @@ Apple Silicon 和 Intel 使用同一个 DMG。Release 的 Assets 中提供安装
 
 ## 数据与许可
 
-设置保存在用户偏好域 `org.stagebyscreen.StageByScreen`；日志保存在 `~/Library/Logs/StageByScreen`，按 512 KB 轮换。没有网络上传。详见 [隐私说明](docs/PRIVACY.md)。
+设置保存在用户偏好域 `org.stagebyscreen.StageByScreen`；日志保存在 `~/Library/Logs/StageByScreen`，按 512 KB 轮换。更新检查会发送正常 HTTPS 请求，不上传设置或日志。详见 [隐私说明](docs/PRIVACY.md)。
 
 采用 MIT 许可证。发布者应在首次公开发行前确认名称、Bundle ID 和署名，并使用自己的签名身份。

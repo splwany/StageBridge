@@ -4,6 +4,7 @@ import SwiftUI
 
 struct SettingsView: View {
   @ObservedObject var monitor: DisplayMonitor
+  @ObservedObject var updater: SoftwareUpdater
   var body: some View {
     ScrollView {
       VStack(alignment: .leading, spacing: 18) {
@@ -62,6 +63,11 @@ struct SettingsView: View {
             Text("默认 5 分钟。仅用于补查可能遗漏的系统通知，不影响正常插拔时的切换速度。")
               .font(.caption).foregroundStyle(.secondary)
               .fixedSize(horizontal: false, vertical: true)
+            Toggle("自动检查软件更新", isOn: Binding(
+              get: { updater.automaticallyChecksForUpdates },
+              set: { updater.setAutomaticChecks($0) }))
+            Text("每天检查一次。有新版时提示，点击更新后下载并安装。")
+              .font(.caption).foregroundStyle(.secondary)
           }.padding(.top, 10)
         }
         .disclosureGroupStyle(AdvancedSettingsDisclosureStyle())
@@ -78,6 +84,17 @@ struct SettingsView: View {
           .padding(12)
           .frame(maxWidth: .infinity, alignment: .leading)
           .background(Color.orange.opacity(0.08), in: RoundedRectangle(cornerRadius: 10))
+        }
+        HStack {
+          if let version = updater.availableVersion {
+            Text("新版本 \(version) 可用").font(.caption)
+          } else {
+            Text("软件更新").font(.caption).foregroundStyle(.secondary)
+          }
+          Spacer()
+          Button(updater.availableVersion == nil ? "检查更新…" : "更新…") {
+            updater.checkForUpdates()
+          }.disabled(!updater.canCheckForUpdates)
         }
         Text(monitor.lastAction).font(.caption).foregroundStyle(.secondary)
           .fixedSize(horizontal: false, vertical: true)
@@ -119,8 +136,6 @@ private struct AdvancedSettingsDisclosureStyle: DisclosureGroupStyle {
             .accessibilityHidden(true)
           configuration.label
           Spacer()
-          Text(configuration.isExpanded ? "收起" : "展开")
-            .font(.caption).foregroundStyle(.secondary)
         }
         .padding(.horizontal, 10)
         .frame(maxWidth: .infinity, minHeight: 36, alignment: .leading)

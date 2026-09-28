@@ -28,5 +28,23 @@
 	<true/>
 	<key>StageByScreenReleaseVersion</key>
 	<string>0.1.0</string>
+	<key>SUFeedURL</key>
+	<string>https://github.com/splwany/StageByScreen/releases/latest/download/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>Fk2SaDJemJqtrtAwQ/sXW453gClyCgcZSrhije6k86o=</string>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
+	<key>SUAutomaticallyUpdate</key>
+	<false/>
+	<key>SUAllowsAutomaticUpdates</key>
+	<false/>
+	<key>SUScheduledCheckInterval</key>
+	<integer>86400</integer>
+	<key>SUEnableSystemProfiling</key>
+	<false/>
+	<key>SUVerifyUpdateBeforeExtraction</key>
+	<true/>
+	<key>SURequireSignedFeed</key>
+	<true/>
 </dict>
 </plist>

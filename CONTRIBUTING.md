@@ -1,8 +1,9 @@
 # 参与开发
 
-需要 macOS 14+ 与 Apple Command Line Tools 或完整 Xcode，无第三方依赖。
+需要 macOS 14+ 与 Apple Command Line Tools 或完整 Xcode，使用固定版本 Sparkle 2.10.0。首次构建需要联网下载经 SHA-256 校验的官方依赖。
 
 ```sh
+./scripts/fetch-sparkle.sh
 ./scripts/test.sh
 ./scripts/build.sh
 ./scripts/package.sh
@@ -25,3 +26,5 @@
 新系统的完整动态外观需要用 Icon Composer 和完整 Xcode 编译分层 `.icon`；不能把传统 ICNS 的透明边距直接套进其满画布背景。参考 [Apple 图标规范](https://developer.apple.com/design/human-interface-guidelines/app-icons) 和 [Icon Composer 文档](https://developer.apple.com/documentation/xcode/creating-your-app-icon-using-icon-composer)。
 
 产品名称为“台前随屏 / StageByScreen”。Bundle ID 与用户偏好域统一为 `org.stagebyscreen.StageByScreen`，日志目录为 `Library/Logs/StageByScreen`。
+
+使用 Xcode 前先执行 `scripts/fetch-sparkle.sh`，工程引用 `.build/Sparkle/Sparkle.framework`。更新公钥可提交；私钥仅存钥匙串，不得导出到仓库。

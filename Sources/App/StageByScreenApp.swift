@@ -3,8 +3,10 @@ import Carbon
 import Combine
 import SwiftUI
 
-final class AppDelegate: NSObject, NSApplicationDelegate {
+final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
   private var monitor: DisplayMonitor!
+  private var updater: SoftwareUpdater!
+  private var updateSubscription: AnyCancellable?
   private var statusItem: NSStatusItem!
   private var window: NSWindow?
   private var subscription: AnyCancellable?
@@ -20,10 +22,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
       return
     }
     monitor = DisplayMonitor()
+    updater = SoftwareUpdater()
     let mainMenu = NSMenu()
     let appItem = NSMenuItem()
     let appMenu = NSMenu()
     add("台前随屏 设置…", #selector(showSettings), ",", to: appMenu)
+    add("检查更新…", #selector(checkForUpdates), "", to: appMenu)
     appMenu.addItem(.separator())
     add("退出台前随屏", #selector(quit), "q", to: appMenu)
     appItem.submenu = appMenu
@@ -33,6 +37,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     statusItem.button?.image = NSImage(
       systemSymbolName: "display.2", accessibilityDescription: "台前随屏")
     subscription = monitor.objectWillChange.sink { [weak self] _ in
+      DispatchQueue.main.async { self?.updateMenu() }
+    }
+    updateSubscription = updater.objectWillChange.sink { [weak self] _ in
       DispatchQueue.main.async { self?.updateMenu() }
     }
     updateMenu()
@@ -52,6 +59,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
     menu.addItem(.separator())
     add("设置…", #selector(showSettings), ",", to: menu)
+    let updateItem = NSMenuItem(
+      title: updater.availableVersion.map { "更新到 \($0)…" } ?? "检查更新…",
+      action: #selector(checkForUpdates), keyEquivalent: "")
+    updateItem.target = self
+    menu.addItem(updateItem)
     add(monitor.enabled ? "暂停自动切换" : "开启自动切换", #selector(toggle), "", to: menu)
     menu.addItem(.separator())
     add("退出台前随屏", #selector(quit), "q", to: menu)
@@ -66,7 +78,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
   @objc func showSettings() {
     if window == nil {
-      let controller = NSHostingController(rootView: SettingsView(monitor: monitor))
+      let controller = NSHostingController(rootView: SettingsView(monitor: monitor, updater: updater))
       let created = NSWindow(contentViewController: controller)
       created.title = "台前随屏 · StageByScreen"
       created.styleMask = [.titled, .closable, .miniaturizable]
@@ -79,6 +91,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     window?.makeKeyAndOrderFront(nil)
     NSApp.activate(ignoringOtherApps: true)
   }
+
+  func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+    menuItem.action != #selector(checkForUpdates) || updater.canCheckForUpdates
+  }
+
+  @objc private func checkForUpdates() { updater.checkForUpdates() }
 
   @objc private func toggle() { monitor.setEnabled(!monitor.enabled) }
   @objc private func quit() {

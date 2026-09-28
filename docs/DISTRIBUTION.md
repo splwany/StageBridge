@@ -31,4 +31,18 @@
 5. 测试版本勾选 Set as a pre-release，检查附件后发布。公开仓库的 Release 可供用户直接下载，无需克隆源码。
 6. 验证未登录状态下能够访问版本和下载安装包，并更新 README 下载入口。测试版链接使用具体版本或 Releases 列表，避免依赖只定位正式版的 `/releases/latest`。
 
-当前没有自动更新组件。用户下载新版、退出旧版、替换 App 即可；设置仍保留。未来可单独评估安全的更新渠道。
+## 带自动更新的发行流程
+
+v0.1.0 尚未包含更新器，用户需先手动安装一次带 Sparkle 的版本。后续版本使用以下流程：
+
+1. 修改 `CFBundleShortVersionString` 与 `StageByScreenReleaseVersion`，递增 `CFBundleVersion`，在 CHANGELOG 添加对应版本章节。
+2. 测试、构建、打包（使用公证时先完成 `notarize.sh`）；最终 DMG 不得在签名更新信息后修改。
+3. 提交并推送 main，等待 CI 通过。
+4. 运行 `python3 scripts/publish-release.py`。脚本验证本机提交与远端 main、CI 状态、包内信息以及公钥；调用钥匙串内专用签名密钥生成 `appcast.xml`，先上传 DMG、SHA256SUMS.txt 和 appcast 到草稿，再发布为 Latest。
+5. 检查未登录下载，以及现有安装的“检查更新…”。发布后禁止替换附件；有修复请增加版本和构建号。
+
+更新地址为 `https://github.com/splwany/StageByScreen/releases/latest/download/appcast.xml`。不可手工发布一个不含签名 appcast 的 Latest，否则自动检查会失败。beta/pre-release 不进入正式更新渠道。
+
+签名密钥账户为 `org.stagebyscreen.StageByScreen`，由 Sparkle `generate_keys --account org.stagebyscreen.StageByScreen` 在登录钥匙串管理。私钥不要写入 Git、日志或命令行参数。新维护设备必须安全导入同一密钥；丢失私钥会使已安装版本无法信任后续更新。公钥在 Info.plist，脚本会检查其一致性。脚本采用现有 GitHub Git 凭据或 `GITHUB_TOKEN`，不在输出中打印凭据。
+
+若发布中断，草稿保持不可见；检查并删除未完成草稿后重试，不要绕过资产校验直接发布。使用 `python3 scripts/make-appcast.py` 可仅生成签名订阅而不发布。

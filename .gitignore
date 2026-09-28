@@ -6,3 +6,5 @@ xcuserdata/
 *.p12
 *.mobileprovision
 .env
+__pycache__/
+*.pyc

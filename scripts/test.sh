@@ -11,3 +11,5 @@ xcrun swiftc -parse-as-library -swift-version 5 -sdk "${SDKROOT:-$(xcrun --sdk m
     -module-cache-path "$ROOT_DIR/.build/ModuleCache" \
     Sources/Core/*.swift Sources/Services/*.swift Sources/App/Monitor.swift Tests/MonitorChecks.swift -o .build/MonitorChecks
 .build/MonitorChecks
+
+python3 Tests/UpdateFeedChecks.py
