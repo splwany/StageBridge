@@ -4,17 +4,17 @@
 
 英文名 **StageByScreen** 表达“按屏幕状态决定台前调度”。
 
-**0.1.0-beta.4 · 实验性测试版 · macOS 14+ · Apple Silicon / Intel 通用二进制**
+**0.1.0-beta.5 · 实验性测试版 · macOS 14+ · Apple Silicon / Intel 通用二进制**
 
 本项目尚未发布到 Mac App Store。当前测试构建使用本地临时签名，未经 Apple 公证；正式发布流程见 [分发说明](docs/DISTRIBUTION.md)。
 
 ## 下载
 
-[下载 macOS 通用安装包（0.1.0-beta.4）](https://github.com/splwany/StageByScreen/releases/download/v0.1.0-beta.4/StageByScreen-0.1.0-beta.4-universal.dmg) · [全部版本与更新说明](https://github.com/splwany/StageByScreen/releases)
+[下载 macOS 通用安装包（0.1.0-beta.5）](https://github.com/splwany/StageByScreen/releases/download/v0.1.0-beta.5/StageByScreen-0.1.0-beta.5-universal.dmg) · [全部版本与更新说明](https://github.com/splwany/StageByScreen/releases)
 
 Apple Silicon 和 Intel 使用同一个 DMG。Release 的 Assets 中提供安装包及 SHA-256 校验文件；自动生成的 Source code 是源码，不是安装包。当前为未经苹果公证的测试版，首次打开可能被 macOS 阻止，请先阅读版本说明。
 
-从 beta.3 及更早版本升级时，请先关闭旧版的“登录时启动”并退出。beta.4 使用新的应用标识，首次运行需重新设置自动切换和登录启动。
+从 beta.3 及更早版本升级时，请先关闭旧版的“登录时启动”并退出。beta.4 起使用新的应用标识，首次运行需重新设置自动切换和登录启动。
 
 ## 使用
 
