@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>StageByScreen</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.stagebridge.StageBridge</string>
+	<string>org.stagebyscreen.StageByScreen</string>
 	<key>CFBundleName</key>
 	<string>台前随屏</string>
 	<key>CFBundleDisplayName</key>

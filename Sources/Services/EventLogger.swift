@@ -20,6 +20,6 @@ struct EventLogger {
       try handle.seekToEnd()
       try handle.write(
         contentsOf: Data("\(ISO8601DateFormatter().string(from: Date())) \(text)\n".utf8))
-    } catch { NSLog("StageBridge log error: %@", error.localizedDescription) }
+    } catch { NSLog("StageByScreen log error: %@", error.localizedDescription) }
   }
 }

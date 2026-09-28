@@ -1,5 +1,10 @@
 # 更新记录
 
+## 未发布
+
+- 统一代码、配置、偏好域与日志目录的英文名称为 StageByScreen。
+- Bundle ID 改为 `org.stagebyscreen.StageByScreen`；首次运行使用默认设置，需要重新配置自动切换和登录启动。
+
 ## 0.1.0-beta.3
 
 - 产品更名为“台前随屏 / StageByScreen”，说明外接屏与笔记本两种使用方式。

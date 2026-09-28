@@ -49,7 +49,7 @@ private final class TestScheduler: MonitorScheduler {
 
 @main struct MonitorChecks {
   @MainActor static func main() async throws {
-    let suite = "StageBridgeMonitorTests-\(UUID().uuidString)"
+    let suite = "StageByScreenMonitorTests-\(UUID().uuidString)"
     let defaults = UserDefaults(suiteName: suite)!
     let home = FileManager.default.temporaryDirectory.appendingPathComponent(suite)
     defer {

@@ -48,7 +48,7 @@ final class DisplayMonitor: ObservableObject {
     self.apply = apply
     self.notificationCenter = notificationCenter
     self.logger = EventLogger(
-      url: home.appendingPathComponent("Library/Logs/StageBridge/events.log"))
+      url: home.appendingPathComponent("Library/Logs/StageByScreen/events.log"))
     interval = defaults.integer(forKey: "PollSeconds")
     if !Self.intervals.contains(interval) { interval = 60 }
     enabled = defaults.bool(forKey: "Enabled")

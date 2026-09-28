@@ -54,7 +54,7 @@ import Foundation
       preconditionFailure("Cancellation must fail")
     } catch is CancellationError {}
     do {
-      _ = try await ProcessRunner.run("/nonexistent/stagebridge-command", [])
+      _ = try await ProcessRunner.run("/nonexistent/stagebyscreen-command", [])
       preconditionFailure("Missing command must throw")
     } catch {}
 

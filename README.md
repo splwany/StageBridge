@@ -2,7 +2,7 @@
 
 让台前调度跟随屏幕状态自动切换：外接屏时关闭，方便多窗口并排；单独使用笔记本时开启，让小屏工作更专注。
 
-英文名 **StageByScreen** 表达“按屏幕状态决定台前调度”。原名 StageBridge，升级沿用相同偏好域和日志位置。
+英文名 **StageByScreen** 表达“按屏幕状态决定台前调度”。
 
 **0.1.0-beta.3 · 实验性测试版 · macOS 14+ · Apple Silicon / Intel 通用二进制**
 
@@ -10,9 +10,11 @@
 
 ## 下载
 
-[下载 macOS 通用安装包（0.1.0-beta.3）](https://github.com/splwany/StageBridge/releases/download/v0.1.0-beta.3/StageByScreen-0.1.0-beta.3-universal.dmg) · [全部版本与更新说明](https://github.com/splwany/StageBridge/releases)
+[下载 macOS 通用安装包（0.1.0-beta.3）](https://github.com/splwany/StageByScreen/releases/download/v0.1.0-beta.3/StageByScreen-0.1.0-beta.3-universal.dmg) · [全部版本与更新说明](https://github.com/splwany/StageByScreen/releases)
 
 Apple Silicon 和 Intel 使用同一个 DMG。Release 的 Assets 中提供安装包及 SHA-256 校验文件；自动生成的 Source code 是源码，不是安装包。当前为未经苹果公证的测试版，首次打开可能被 macOS 阻止，请先阅读版本说明。
+
+源码中的应用标识已统一为 `org.stagebyscreen.StageByScreen`；以上 beta.3 安装包仍使用发布时的标识。后续更换标识的版本首次运行需重新设置自动切换和登录启动。
 
 ## 使用
 
@@ -58,6 +60,6 @@ Apple Silicon 和 Intel 使用同一个 DMG。Release 的 Assets 中提供安装
 
 ## 数据与许可
 
-设置保存在用户偏好域 `org.stagebridge.StageBridge`；日志保存在 `~/Library/Logs/StageBridge`，按 512 KB 轮换。没有网络上传。详见 [隐私说明](docs/PRIVACY.md)。
+设置保存在用户偏好域 `org.stagebyscreen.StageByScreen`；日志保存在 `~/Library/Logs/StageByScreen`，按 512 KB 轮换。没有网络上传。详见 [隐私说明](docs/PRIVACY.md)。
 
 采用 MIT 许可证。发布者应在首次公开发行前确认名称、Bundle ID 和署名，并使用自己的签名身份。

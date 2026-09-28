@@ -24,4 +24,4 @@
 
 新系统的完整动态外观需要用 Icon Composer 和完整 Xcode 编译分层 `.icon`；不能把传统 ICNS 的透明边距直接套进其满画布背景。参考 [Apple 图标规范](https://developer.apple.com/design/human-interface-guidelines/app-icons) 和 [Icon Composer 文档](https://developer.apple.com/documentation/xcode/creating-your-app-icon-using-icon-composer)。
 
-产品名称为“台前随屏 / StageByScreen”。为兼容升级，Bundle ID、用户偏好域与日志目录保留 `org.stagebridge.StageBridge` 和 `Library/Logs/StageBridge`，不要随展示名称改变。
+产品名称为“台前随屏 / StageByScreen”。Bundle ID 与用户偏好域统一为 `org.stagebyscreen.StageByScreen`，日志目录为 `Library/Logs/StageByScreen`。

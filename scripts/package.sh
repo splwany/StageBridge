@@ -6,7 +6,7 @@ APP="$ROOT_DIR/.build/台前随屏.app"
 [ -d "$APP" ] || { printf 'Run scripts/build.sh first.\n' >&2; exit 1; }
 source "$ROOT_DIR/scripts/version.sh"
 mkdir -p dist
-STAGE_DIR="$(mktemp -d "${TMPDIR:-/tmp}/stagebridge-dmg.XXXXXX")"
+STAGE_DIR="$(mktemp -d "${TMPDIR:-/tmp}/stagebyscreen-dmg.XXXXXX")"
 trap 'rm -rf "$STAGE_DIR"' EXIT
 /usr/bin/ditto --norsrc "$APP" "$STAGE_DIR/台前随屏.app"
 xattr -cr "$STAGE_DIR/台前随屏.app"
