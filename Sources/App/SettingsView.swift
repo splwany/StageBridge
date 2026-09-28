@@ -30,16 +30,6 @@ struct SettingsView: View {
           Toggle("启用自动切换", isOn: Binding(get: { monitor.enabled }, set: { monitor.setEnabled($0) }))
           Text("外接屏时关闭台前调度，让多个窗口自由并排；单独使用笔记本时开启，让工作更专注。")
             .font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
-          HStack {
-            Text("备用检查间隔")
-            Spacer()
-            Picker(
-              "备用检查间隔",
-              selection: Binding(get: { monitor.interval }, set: { monitor.setInterval($0) })
-            ) {
-              ForEach(DisplayMonitor.intervals, id: \.self) { Text("\($0) 秒").tag($0) }
-            }.labelsHidden().frame(width: 115)
-          }
           Text("连接变化稳定 2 秒后切换；连接状态不变时保留你的手动设置。")
             .font(.caption).foregroundStyle(.secondary)
           Divider()
@@ -54,6 +44,25 @@ struct SettingsView: View {
         }
         .padding(18)
         .background(Color.primary.opacity(0.04), in: RoundedRectangle(cornerRadius: 12))
+        DisclosureGroup("高级设置") {
+          VStack(alignment: .leading, spacing: 10) {
+            HStack {
+              Text("备用检查间隔")
+              Spacer()
+              Picker(
+                "备用检查间隔",
+                selection: Binding(get: { monitor.interval }, set: { monitor.setInterval($0) })
+              ) {
+                ForEach(DisplayMonitor.intervals, id: \.self) {
+                  Text("\($0 / 60) 分钟").tag($0)
+                }
+              }.labelsHidden().frame(width: 115)
+            }
+            Text("默认 5 分钟。仅用于补查可能遗漏的系统通知，不影响正常插拔时的切换速度。")
+              .font(.caption).foregroundStyle(.secondary)
+              .fixedSize(horizontal: false, vertical: true)
+          }.padding(.top, 10)
+        }
         Label("测试版通过系统内部偏好切换台前调度，切换时会重载 Dock。macOS 升级后可能失效。", systemImage: "info.circle")
           .font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
         if let attention = monitor.attention {

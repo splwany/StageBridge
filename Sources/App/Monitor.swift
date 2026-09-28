@@ -2,9 +2,10 @@ import AppKit
 import ServiceManagement
 
 final class DisplayMonitor: ObservableObject {
-  static let intervals = [15, 30, 60, 120, 300]
+  static let intervals = [60, 120, 300, 600, 1800]
+  static let defaultInterval = 300
   @Published private(set) var enabled = false
-  @Published private(set) var interval = 60
+  @Published private(set) var interval = DisplayMonitor.defaultInterval
   @Published private(set) var displayStatus = "读取显示器状态…"
   @Published private(set) var lastAction = "启动时只记录连接状态。"
   @Published private(set) var loginEnabled = false
@@ -50,7 +51,7 @@ final class DisplayMonitor: ObservableObject {
     self.logger = EventLogger(
       url: home.appendingPathComponent("Library/Logs/StageByScreen/events.log"))
     interval = defaults.integer(forKey: "PollSeconds")
-    if !Self.intervals.contains(interval) { interval = 60 }
+    if !Self.intervals.contains(interval) { interval = Self.defaultInterval }
     enabled = defaults.bool(forKey: "Enabled")
     refreshLogin()
     baseline()
@@ -102,7 +103,7 @@ final class DisplayMonitor: ObservableObject {
     interval = value
     defaults.set(value, forKey: "PollSeconds")
     if enabled { scheduleTimer() }
-    lastAction = "备用检查间隔已立即更新为 \(value) 秒。"
+    lastAction = "备用检查间隔已立即更新为 \(value / 60) 分钟。"
     log(lastAction)
   }
 

@@ -78,18 +78,20 @@ private final class TestScheduler: MonitorScheduler {
         return .updated
       }, notificationCenter: center, home: home)
     defer { monitor.shutdown() }
+    precondition(monitor.interval == 300, "New installation defaults to five minutes")
     monitor.setEnabled(true)
     precondition(applied.isEmpty, "Enabling only establishes baseline")
     connected = true
     events.callback?()
     events.callback?()
     precondition(clock.pendingCount == 1, "Display storms must debounce to one job")
-    monitor.setInterval(30)
+    monitor.setInterval(600)
+    precondition(defaults.integer(forKey: "PollSeconds") == 600, "Minute selection persists seconds")
     precondition(clock.pendingCount == 1, "Interval change preserves display work")
     clock.fire(2)
     await settleTasks(monitor)
     precondition(applied == [false], "Connection submits exactly one disable")
-    clock.fire(30)
+    clock.fire(600)
     clock.fire(2)
     await settleTasks(monitor)
     precondition(applied == [false], "Polling never reapplies unchanged state")
@@ -129,7 +131,7 @@ private final class TestScheduler: MonitorScheduler {
       monitor.attention != nil && monitor.errorMessage == nil,
       "Background failure remains visible without a modal")
     let attempts = applied.count
-    clock.fire(30)
+    clock.fire(600)
     clock.fire(2)
     await settleTasks(monitor)
     precondition(applied.count == attempts, "Failed control must not retry unchanged state")
