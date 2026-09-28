@@ -1,3 +1,4 @@
+import AppKit
 import ServiceManagement
 import SwiftUI
 
@@ -63,6 +64,7 @@ struct SettingsView: View {
               .fixedSize(horizontal: false, vertical: true)
           }.padding(.top, 10)
         }
+        .disclosureGroupStyle(AdvancedSettingsDisclosureStyle())
         Label("测试版通过系统内部偏好切换台前调度，切换时会重载 Dock。macOS 升级后可能失效。", systemImage: "info.circle")
           .font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
         if let attention = monitor.attention {
@@ -99,5 +101,53 @@ struct SettingsView: View {
     }
     .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification))
     { _ in monitor.refreshLogin() }
+  }
+}
+
+private struct AdvancedSettingsDisclosureStyle: DisclosureGroupStyle {
+  @State private var isHovering = false
+
+  func makeBody(configuration: Configuration) -> some View {
+    VStack(alignment: .leading, spacing: 0) {
+      Button {
+        configuration.isExpanded.toggle()
+      } label: {
+        HStack(spacing: 8) {
+          Image(systemName: configuration.isExpanded ? "chevron.down" : "chevron.right")
+            .font(.caption.weight(.semibold))
+            .frame(width: 12)
+            .accessibilityHidden(true)
+          configuration.label
+          Spacer()
+          Text(configuration.isExpanded ? "收起" : "展开")
+            .font(.caption).foregroundStyle(.secondary)
+        }
+        .padding(.horizontal, 10)
+        .frame(maxWidth: .infinity, minHeight: 36, alignment: .leading)
+        .background(
+          Color.primary.opacity(isHovering ? 0.08 : 0.04),
+          in: RoundedRectangle(cornerRadius: 8))
+        .contentShape(Rectangle())
+      }
+      .buttonStyle(.plain)
+      .accessibilityLabel("高级设置")
+      .accessibilityValue(configuration.isExpanded ? "已展开" : "已折叠")
+      .help(configuration.isExpanded ? "收起高级设置" : "展开高级设置")
+      .onHover { hovering in
+        guard hovering != isHovering else { return }
+        isHovering = hovering
+        if hovering { NSCursor.pointingHand.push() } else { NSCursor.pop() }
+      }
+      .onDisappear {
+        if isHovering {
+          NSCursor.pop()
+          isHovering = false
+        }
+      }
+      if configuration.isExpanded {
+        configuration.content
+          .frame(maxWidth: .infinity, alignment: .leading)
+      }
+    }
   }
 }
