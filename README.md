@@ -50,17 +50,11 @@ Apple Silicon 和 Intel 使用同一个 DMG。Release 的 Assets 中提供安装
 
 - `Sources/Core`：可单独验证的连接状态策略
 - `Sources/App`：设置、菜单栏及监听流程协调
-- `Sources/Services`：系统事件、显示器读取、命令执行、台前调度控制和迁移
+- `Sources/Services`：系统事件、显示器读取、命令执行、台前调度控制
 - `Resources`：应用信息与图标
 - `Tests`：状态策略检查
 - `scripts`：构建、测试、打包、公证
 - `docs`：发布、隐私、兼容性说明
-
-## 从原型迁移
-
-若检测到旧的 `com.local.stage-manager-display-watch` LaunchAgent，新版会暂停并显示迁移入口。点击后停止并禁用旧进程，将旧 `.plist` 和 `.py` 移到 `~/Library/Application Support/StageBridge/LegacyBackup-*`，再导入启用状态和间隔。迁移不会删除备份，也不会创建新的散装 Python 脚本。
-
-完成迁移后，可退出并移除旧的“台前调度自动切换设置.app”。请勿同时运行旧版设置程序，否则它可能重新注册旧服务。
 
 ## 数据与许可
 

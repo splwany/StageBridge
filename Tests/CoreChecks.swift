@@ -58,40 +58,9 @@ import Foundation
       preconditionFailure("Missing command must throw")
     } catch {}
 
-    try migrationRecovery()
     print(
-      "PASS: transition, sleep/wake, process diagnostics, timeout, cancellation and migration recovery checks"
+      "PASS: transition, sleep/wake, process diagnostics, timeout, cancellation checks"
     )
   }
 
-  static func migrationRecovery() throws {
-    let suite = "StageBridgeTests-\(UUID().uuidString)"
-    let defaults = UserDefaults(suiteName: suite)!
-    let home = FileManager.default.temporaryDirectory.appendingPathComponent(suite)
-    defer {
-      defaults.removePersistentDomain(forName: suite)
-      try? FileManager.default.removeItem(at: home)
-    }
-    let agents = home.appendingPathComponent("Library/LaunchAgents")
-    let backup = home.appendingPathComponent("backup")
-    try FileManager.default.createDirectory(at: agents, withIntermediateDirectories: true)
-    try FileManager.default.createDirectory(at: backup, withIntermediateDirectories: true)
-    let plist = agents.appendingPathComponent("com.local.stage-manager-display-watch.plist")
-    let script = agents.appendingPathComponent("stage-manager-display-watch.py")
-    try Data("plist".utf8).write(to: plist)
-    try Data("script".utf8).write(to: script)
-    // Simulate a crash after only the first file was moved.
-    defaults.set(backup.path, forKey: "LegacyBackupInProgress")
-    try FileManager.default.moveItem(
-      at: plist, to: backup.appendingPathComponent(plist.lastPathComponent))
-    let migration = LegacyMigration(defaults: defaults, home: home)
-    precondition(migration.isNeeded, "Partial migration must remain discoverable without the plist")
-    try migration.archiveFiles()
-    precondition(!FileManager.default.fileExists(atPath: script.path))
-    let archived = try String(
-      contentsOf: backup.appendingPathComponent(script.lastPathComponent), encoding: .utf8)
-    precondition(archived == "script")
-    try migration.archiveFiles()
-    precondition(migration.isNeeded, "Archiving alone must not mark settings imported")
-  }
 }

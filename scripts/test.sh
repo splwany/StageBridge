@@ -5,7 +5,7 @@ cd "$ROOT_DIR"
 mkdir -p .build/ModuleCache
 xcrun swiftc -parse-as-library -swift-version 5 -sdk "${SDKROOT:-$(xcrun --sdk macosx --show-sdk-path)}" \
     -module-cache-path "$ROOT_DIR/.build/ModuleCache" \
-    Sources/Core/*.swift Sources/Services/ProcessRunner.swift Sources/Services/LegacyMigration.swift Tests/CoreChecks.swift -o .build/CoreChecks
+    Sources/Core/*.swift Sources/Services/ProcessRunner.swift Tests/CoreChecks.swift -o .build/CoreChecks
 .build/CoreChecks
 xcrun swiftc -parse-as-library -swift-version 5 -sdk "${SDKROOT:-$(xcrun --sdk macosx --show-sdk-path)}" \
     -module-cache-path "$ROOT_DIR/.build/ModuleCache" \

@@ -28,7 +28,6 @@ struct SettingsView: View {
           }
           Divider()
           Toggle("启用自动切换", isOn: Binding(get: { monitor.enabled }, set: { monitor.setEnabled($0) }))
-            .disabled(monitor.hasLegacy)
           Text("外接屏时关闭台前调度，让多个窗口自由并排；单独使用笔记本时开启，让工作更专注。")
             .font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
           HStack {
@@ -55,14 +54,6 @@ struct SettingsView: View {
         }
         .padding(18)
         .background(Color.primary.opacity(0.04), in: RoundedRectangle(cornerRadius: 12))
-        if monitor.hasLegacy {
-          VStack(alignment: .leading, spacing: 8) {
-            Text("发现旧版 Python 监听器。迁移会停用并备份旧文件，再接管设置。")
-              .font(.caption)
-            Button(monitor.migrating ? "正在迁移…" : "迁移旧版监听器") { monitor.migrateLegacy() }
-              .disabled(monitor.migrating)
-          }
-        }
         Label("测试版通过系统内部偏好切换台前调度，切换时会重载 Dock。macOS 升级后可能失效。", systemImage: "info.circle")
           .font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
         if let attention = monitor.attention {

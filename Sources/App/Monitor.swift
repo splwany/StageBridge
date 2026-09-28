@@ -11,8 +11,6 @@ final class DisplayMonitor: ObservableObject {
   @Published private(set) var loginNeedsApproval = false
   @Published var errorMessage: String?
   @Published private(set) var attention: String?
-  @Published private(set) var hasLegacy = false
-  @Published private(set) var migrating = false
   private var policy = ConnectionPolicy()
   private var listening = false
   private var timer: ScheduledAction?
@@ -31,7 +29,6 @@ final class DisplayMonitor: ObservableObject {
   private let notificationCenter: NotificationCenter
   private let logger: EventLogger
   var logURL: URL { logger.url }
-  private let migration: LegacyMigration
 
   init(
     defaults: UserDefaults = .standard,
@@ -52,12 +49,9 @@ final class DisplayMonitor: ObservableObject {
     self.notificationCenter = notificationCenter
     self.logger = EventLogger(
       url: home.appendingPathComponent("Library/Logs/StageBridge/events.log"))
-    self.migration = LegacyMigration(defaults: defaults, home: home)
     interval = defaults.integer(forKey: "PollSeconds")
     if !Self.intervals.contains(interval) { interval = 60 }
     enabled = defaults.bool(forKey: "Enabled")
-    hasLegacy = migration.isNeeded
-    if hasLegacy { enabled = false }
     refreshLogin()
     baseline()
     let center = notificationCenter
@@ -94,10 +88,6 @@ final class DisplayMonitor: ObservableObject {
   }
 
   func setEnabled(_ value: Bool) {
-    guard !hasLegacy else {
-      errorMessage = "请先迁移旧版监听器，避免两个版本同时控制台前调度。"
-      return
-    }
     stop()
     enabled = value
     defaults.set(value, forKey: "Enabled")
@@ -243,27 +233,6 @@ final class DisplayMonitor: ObservableObject {
       }
     } catch { errorMessage = "登录启动设置失败：\(error.localizedDescription)" }
     refreshLogin()
-  }
-
-  func migrateLegacy() {
-    guard !migrating else { return }
-    migrating = true
-    Task { @MainActor in
-      defer { migrating = false }
-      do {
-        let settings = try await migration.perform()
-        hasLegacy = false
-        setInterval(Self.intervals.contains(settings.interval) ? settings.interval : 60)
-        setEnabled(settings.enabled)
-        if enabled == settings.enabled {
-          lastAction = "旧版已停用并备份；设置已迁移。"
-          log(lastAction)
-        }
-      } catch {
-        errorMessage = error.localizedDescription
-        log(error.localizedDescription)
-      }
-    }
   }
 
   deinit { shutdown() }
