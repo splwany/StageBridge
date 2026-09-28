@@ -4,13 +4,13 @@
 
 英文名 **StageByScreen** 表达“按屏幕状态决定台前调度”。
 
-**0.1.0 · macOS 14+ · Apple Silicon / Intel 通用二进制**
+**0.1.1 · macOS 14+ · Apple Silicon / Intel 通用二进制**
 
 本项目尚未发布到 Mac App Store。当前构建使用本地临时签名，未经 Apple 公证；正式发布流程见 [分发说明](docs/DISTRIBUTION.md)。
 
 ## 下载
 
-[下载 macOS 通用安装包（0.1.0）](https://github.com/splwany/StageByScreen/releases/download/v0.1.0/StageByScreen-0.1.0-universal.dmg) · [全部版本与更新说明](https://github.com/splwany/StageByScreen/releases)
+[下载 macOS 通用安装包（0.1.1）](https://github.com/splwany/StageByScreen/releases/download/v0.1.1/StageByScreen-0.1.1-universal.dmg) · [全部版本与更新说明](https://github.com/splwany/StageByScreen/releases)
 
 Apple Silicon 和 Intel 使用同一个 DMG。Release 的 Assets 中提供安装包及 SHA-256 校验文件；自动生成的 Source code 是源码，不是安装包。当前为未经苹果公证的版本，首次打开可能被 macOS 阻止，请先阅读版本说明。
 
@@ -34,9 +34,9 @@ Apple Silicon 和 Intel 使用同一个 DMG。Release 的 Assets 中提供安装
 - 屏幕监听无需辅助功能或屏幕录制权限，不采集截图。软件更新会连接 GitHub；安装目录不可写时，系统可能要求管理员授权。不含分析 SDK。
 - 最低目标系统为 macOS 14；当前实际本机验证与未验证项见 [测试记录](docs/TESTING.md)。不能将编译支持等同于所有设备均已测试。
 
-## 软件更新（开发中，v0.1.0 安装包尚未包含）
+## 软件更新
 
-首次需手动安装带更新组件的版本。之后每天后台检查一次，发现新版时设置页和菜单栏会显示更新按钮。点击后由 Sparkle 显示版本说明、下载进度，校验签名并安装、重新启动。高级设置可关闭自动检查，也可手动“检查更新…”。不会在未经用户选择时自动下载或安装。
+从 v0.1.0 及更早版本升级，需先手动安装一次 v0.1.1 或更新版本。之后每天后台检查一次，发现新版时设置页和菜单栏会显示更新按钮。点击后由 Sparkle 显示版本说明、下载进度，校验签名并安装、重新启动。高级设置可关闭自动检查，也可手动“检查更新…”。不会在未经用户选择时自动下载或安装。
 
 发行者必须使用签名发布流程，为每个 Release 上传 `appcast.xml`；仅上传 DMG 不会自动加入更新渠道。详见 [分发说明](docs/DISTRIBUTION.md)。
 
