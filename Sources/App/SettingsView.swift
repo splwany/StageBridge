@@ -65,7 +65,7 @@ struct SettingsView: View {
           }.padding(.top, 10)
         }
         .disclosureGroupStyle(AdvancedSettingsDisclosureStyle())
-        Label("测试版通过系统内部偏好切换台前调度，切换时会重载 Dock。macOS 升级后可能失效。", systemImage: "info.circle")
+        Label("通过系统内部偏好切换台前调度，切换时会重载 Dock。macOS 升级后可能失效。", systemImage: "info.circle")
           .font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
         if let attention = monitor.attention {
           VStack(alignment: .leading, spacing: 8) {

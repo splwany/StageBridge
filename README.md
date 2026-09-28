@@ -4,22 +4,22 @@
 
 英文名 **StageByScreen** 表达“按屏幕状态决定台前调度”。
 
-**0.1.0-beta.6 · 实验性测试版 · macOS 14+ · Apple Silicon / Intel 通用二进制**
+**0.1.0 · macOS 14+ · Apple Silicon / Intel 通用二进制**
 
-本项目尚未发布到 Mac App Store。当前测试构建使用本地临时签名，未经 Apple 公证；正式发布流程见 [分发说明](docs/DISTRIBUTION.md)。
+本项目尚未发布到 Mac App Store。当前构建使用本地临时签名，未经 Apple 公证；正式发布流程见 [分发说明](docs/DISTRIBUTION.md)。
 
 ## 下载
 
-[下载 macOS 通用安装包（0.1.0-beta.6）](https://github.com/splwany/StageByScreen/releases/download/v0.1.0-beta.6/StageByScreen-0.1.0-beta.6-universal.dmg) · [全部版本与更新说明](https://github.com/splwany/StageByScreen/releases)
+[下载 macOS 通用安装包（0.1.0）](https://github.com/splwany/StageByScreen/releases/download/v0.1.0/StageByScreen-0.1.0-universal.dmg) · [全部版本与更新说明](https://github.com/splwany/StageByScreen/releases)
 
-Apple Silicon 和 Intel 使用同一个 DMG。Release 的 Assets 中提供安装包及 SHA-256 校验文件；自动生成的 Source code 是源码，不是安装包。当前为未经苹果公证的测试版，首次打开可能被 macOS 阻止，请先阅读版本说明。
+Apple Silicon 和 Intel 使用同一个 DMG。Release 的 Assets 中提供安装包及 SHA-256 校验文件；自动生成的 Source code 是源码，不是安装包。当前为未经苹果公证的版本，首次打开可能被 macOS 阻止，请先阅读版本说明。
 
 从 beta.3 及更早版本升级时，请先关闭旧版的“登录时启动”并退出。beta.4 起使用新的应用标识，首次运行需重新设置自动切换和登录启动。
 
 ## 使用
 
 1. 将 DMG 中的 台前随屏.app 拖进“应用程序”，不要直接在 DMG 中运行。
-2. 首次打开默认暂停。阅读设置窗口中的测试版说明，再选择“启用自动切换”。
+2. 首次打开默认暂停。阅读设置窗口中的兼容性说明，再选择“启用自动切换”。
 3. 关闭设置窗口后，程序仍在菜单栏运行。菜单栏可暂停、打开设置或退出。退出会停止全部监听。
 4. “登录时启动”由 macOS 管理，可能需要在系统设置中允许。卸载前先关闭此选项并退出，然后将 App 移到废纸篓。
 

@@ -1,6 +1,6 @@
 # 分发
 
-## 测试版
+## 当前分发状态
 
 `./scripts/package.sh` 生成本地签名 DMG。它不是 Developer ID 签名，也未经苹果公证。下载到其他 Mac 后可能被 Gatekeeper 阻止。向测试者明确说明来源和状态；不要要求关闭 Gatekeeper 或其他系统安全保护。技术测试者也可以从源码自行构建。
 
