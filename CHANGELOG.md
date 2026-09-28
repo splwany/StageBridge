@@ -1,6 +1,8 @@
 # 更新记录
 
-## 未发布
+## 0.1.0-beta.4
+
+- 移除原型监听器的检测、接管逻辑和相关界面。
 
 - 统一代码、配置、偏好域与日志目录的英文名称为 StageByScreen。
 - Bundle ID 改为 `org.stagebyscreen.StageByScreen`；首次运行使用默认设置，需要重新配置自动切换和登录启动。

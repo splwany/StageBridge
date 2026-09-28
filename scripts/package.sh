@@ -17,4 +17,4 @@ cp LICENSE "$STAGE_DIR/LICENSE.txt"
 mkdir -p "$STAGE_DIR/docs"
 cp docs/PRIVACY.md docs/DISTRIBUTION.md "$STAGE_DIR/docs/"
 hdiutil create -ov -format UDZO -volname "StageByScreen $VERSION" -srcfolder "$STAGE_DIR" "dist/StageByScreen-$VERSION-universal.dmg"
-shasum -a 256 "dist/StageByScreen-$VERSION-universal.dmg" > dist/SHA256SUMS.txt
+(cd dist && shasum -a 256 "StageByScreen-$VERSION-universal.dmg" > SHA256SUMS.txt)
